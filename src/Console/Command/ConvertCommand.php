@@ -8,6 +8,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use PhpParser\Parser;
 use PhpParser\Lexer;
 use PhpParser\NodeDumper;
+use PhpParser\NodeTraverser;
+use PhpParser\PrettyPrinter;
+use PhpParser\PrettyPrinter\Standard;
+
 class ConvertCommand extends Command {
 	protected function configure()
 	{
@@ -36,10 +40,10 @@ class ConvertCommand extends Command {
 		$script = file_get_contents($path);
 		$nodeDumper = new NodeDumper;
 
-		$traverser     = new PhpParser\NodeTraverser;
-		$prettyPrinter = new PhpParser\PrettyPrinter\Standard;
+		$traverser     = new NodeTraverser;
+		$prettyPrinter = new PrettyPrinter\Standard;
 
-		$parser->addVisitor(new NodeVisitor\ConvertNative);
+//		$traverser->addVisitor(new NodeVisitor\ConvertNative);
 		try {
 			$stmts = $parser->parse($script);
 
