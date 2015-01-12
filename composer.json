@@ -1,0 +1,24 @@
+{
+	"name": "pierre/p7i",
+		"description": "Tools to create extension made of PHP and C code, releasing extension with everything builtin.",
+		"require": {
+			"php": "~5.5",
+			"symfony/console": "~2.5",
+			"nikic/php-parser": "~1.0",
+			"doctrine/annotations": "~1.2"
+		},
+		"license": "New BSD",
+		"authors": [
+		{
+			"name": "Pierre Joye",
+			"email": "pierre.php@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"P7i\\": ["src/"]
+		}
+	},
+	"bin": ["bin/p7i"]
+
+}

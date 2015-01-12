@@ -11,6 +11,10 @@ use PhpParser\NodeDumper;
 use PhpParser\NodeTraverser;
 use PhpParser\PrettyPrinter;
 use PhpParser\PrettyPrinter\Standard;
+use PhpParser\Node;
+use PhpParser\NodeVisitorAbstract;
+
+use P7i\Converter\Native;
 
 class ConvertCommand extends Command {
 	protected function configure()
@@ -43,11 +47,11 @@ class ConvertCommand extends Command {
 		$traverser     = new NodeTraverser;
 		$prettyPrinter = new PrettyPrinter\Standard;
 
-//		$traverser->addVisitor(new NodeVisitor\ConvertNative);
+		$traverser->addVisitor(new Native($dest, basename($path)));
 		try {
 			$stmts = $parser->parse($script);
-
-			echo $nodeDumper->dump($stmts), "\n";
+			$traverser->traverse($stmts);
+//			echo $nodeDumper->dump($stmts), "\n";
 		} catch (PhpParser\Error $e) {
 			echo 'Parse Error: ', $e->getMessage();
 		}
